@@ -1,0 +1,58 @@
+﻿@model IEnumerable<HouseRentManagementApp.Models.Flat>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2><mark>Flat List</mark> </h2>
+<br />
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Homes.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Types.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FloorNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FlatNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RentPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Homes.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Types.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FloorNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FlatNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RentPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,143 @@
+﻿@{
+    ViewBag.Title = "RentedRoomInfo";
+}
+<link href="~/Content/DataTables-1.9.4/media/css/jquery.dataTables.css" rel="stylesheet" />
+<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+<h2>RentedRoomInfo</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+   <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <label for="HomeId" class="control-label col-md-2">Select Home</label>
+            <div class="col-md-10">
+                <select name="HomeId" id="HomeId">
+                    <option>--Select--</option>
+                    @foreach (var Home in ViewBag.HomeId)
+                    {
+                        <option value="@Home.Id">@Home.Name</option>
+                    }
+
+
+                </select>
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+
+            <label for="FlatId" class="control-label col-md-2">Select Flat</label>
+            <div class="col-md-10">
+                <select name="FlatId" id="FlatId">
+                    <option>--Select--</option>
+                </select>
+            </div>
+        </div>
+
+
+               
+        <div class="form-group">
+            <label for="HouseRepresentativeName" class="control-label col-md-2">House Representative Name</label>
+            <div class="col-md-10">
+                <input type="text" id="HouseRepresentativeName" />
+            
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="HouseRepresentativeContactNo" class="control-label col-md-2">House Representative Mobile No</label>
+            <div class="col-md-10">
+                <input type="text" id="HouseRepresentativeContactNo" />
+            </div>
+        </div>
+        <div class="form-group">
+            <table id="myTable" class="table table-bordered table-hover table-striped">
+                <thead>
+                    <tr>
+                        <th>Member Name</th>
+                        <th>Mobile No</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody"></tbody>
+            </table>
+        </div>
+
+
+       
+
+        
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Make Pdf" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+                 @Scripts.Render("~/bundles/jqueryval")
+
+         <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/DataTables-1.9.4/media/js/jquery.dataTables.js"></script>
+
+         <script>
+
+                 $(document).ready(function () {
+
+                     $("#HomeId").change(function () {
+                         var HmeId = $("#HomeId").val();
+
+                         $("#FlatId").empty();
+                         $("#FlatId").append('<option value="">Select</option>');
+                         var json = { HomeId: HmeId };
+                         $.ajax({
+                             type: "POST",
+                             url: '/RentedBies/GetFlatByHomeId',
+                             contentType: "application/json; charset=utf-8",
+                             data: JSON.stringify(json),
+                             success: function (data) {
+
+                                 $.each(data, function (key, value) {
+                                     $("#FlatId").append('<option value="' + value.Id + '">' + value.FlatNo + '</option>');
+
+
+                                 });
+                             }
+                         });
+                     });
+                   var table = $("#myTable").DataTable();
+                $("#FlatId").change(function () {
+                    var FtId = $("#FlatId").val();
+
+                    $("#myTable").show();
+                    $("#tableBody").empty();
+                    var json = { FlatId: FtId };
+                    $.ajax({
+                        type: "POST",
+
+                        url: '/HouseOwners/GetRentedRoomInfo',
+
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify(json),
+                        success: function (data) {
+
+
+                            $.each(data, function (key, value) {
+                                $("#HouseRepresentativeName").val(value.RepresentativeName);
+                                $("#HouseRepresentativeContactNo").val(value.RepresentativeContactNo);
+                                $("#tableBody").append('<tr><td>' + value.MemberName + '</td><td>' + value.ContactNo +'</td></tr>');
+                            });
+                        }
+                    });
+                });
+
+                 });
+
+        </script>
+             }

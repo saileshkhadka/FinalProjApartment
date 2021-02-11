@@ -1,0 +1,96 @@
+﻿@model IEnumerable<HouseRentManagementApp.Models.FlatMember>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>List Of Member</h2>
+
+<p>
+    @Html.ActionLink("Add Member", "AddMember")
+</p>
+<table class="table">
+    <tr>
+        
+         <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayName("Occupation")
+        </th>
+       
+         <th>
+            @Html.DisplayNameFor(model => model.NationalIdOrBirthCertificate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MobileNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EntryDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LeavingDate)
+        </th>
+       
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Occupations.Name)
+        </td>
+         <td>
+            @Html.DisplayFor(modelItem => item.NationalIdOrBirthCertificate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MobileNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EntryDate)
+        </td>
+        <td>
+            @if (item.LeavingDate==null)
+            {
+                @Html.DisplayName("Not Leave");
+            } 
+            @if (item.LeavingDate != null)
+            {
+               @Html.DisplayFor(modelItem => item.LeavingDate)
+            }
+           
+        </td>
+       @if (item.LeavingDate != null)
+       {
+        <td></td>
+       }
+       else
+       {
+        <td>
+            @Html.ActionLink("Leave House", "DeleteConfirmed", new { id = item.Id }, new { @id = "Leave" })
+        </td>
+       }
+           
+         
+    </tr>
+}
+   
+</table>
+
+    @section scripts{
+    <script>
+                           $(document).ready(function
+                                              () {
+                               $("#Leave").click(function(){
+                        var r = confirm("Are you sure to let this Member To Leave House?");
+                                          if (r === false) {
+                                              return false;
+                                                          }
+
+                                      });
+                                                             });</script>
+    }

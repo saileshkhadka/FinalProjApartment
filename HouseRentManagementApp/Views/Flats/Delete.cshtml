@@ -1,0 +1,72 @@
+﻿@model HouseRentManagementApp.Models.Flat
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Flat</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Homes.HomeNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Homes.HomeNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Types.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Types.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FloorNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FloorNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FlatNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FlatNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RentPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RentPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

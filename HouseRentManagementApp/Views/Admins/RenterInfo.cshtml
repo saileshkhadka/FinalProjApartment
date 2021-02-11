@@ -1,0 +1,132 @@
+﻿
+@{
+    ViewBag.Title = "RenterInfo";
+}
+<link href="~/Content/DataTables-1.9.4/media/css/jquery.dataTables.css" rel="stylesheet" />
+
+<h2>RenterInfo</h2>
+
+
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <label for="HouseRenter" class="control-label col-md-2">Renter Mobile No</label>
+                <div class="col-md-10">
+                    <input type="text" name="HouseRenter" id="HouseRenter" />
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" id="Button"value="Search" class="btn btn-default" />
+                </div>
+            </div>
+
+        
+                <h3> <mark>Flat Informations</mark>  </h3>
+               
+
+            <div class="form-group">
+                <table id="myTable" class="table table-bordered table-hover table-striped">
+                    <thead>
+                        <tr>
+                             <th>House Name</th>
+                             <th>House No</th>
+                             <th>Flat No</th>
+                             <th>House Owner Name</th>
+                             <th>House Owner Mobile No</th>
+                             <th>Rent From</th>
+                             <th>Rent To</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody"></tbody>
+                </table>
+            </div>
+                <h3 > <mark>Member Informations</mark>  </h3>
+               
+
+     
+    <div class="form-group">
+        <table id="myTable2" class="table table-bordered table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>Member Name</th>
+                    <th>Member MobileNo</th>
+                    <th>Live From</th>
+                    <th>Live To</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody2"></tbody>
+        </table>
+    </div>
+
+        </div>
+
+    }
+    
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+
+        <script src="~/Scripts/jquery-1.10.2.js"></script>
+        <script src="~/Scripts/DataTables-1.9.4/media/js/jquery.dataTables.js"></script>
+
+        <script>
+                $(document).ready(function () {
+
+                               var table = $("#myTable").DataTable();
+                            $("#Button").click(function () {
+                                var HN = $("#HouseRenter").val();
+
+                                $("#myTable").show();
+                                $("#tableBody").empty();
+                                var json = { HouseRenter: HN };
+                                $.ajax({
+                                    type: "POST",
+
+                                    url: '/Admins/GetRenerFlatsInfo',
+
+                                    contentType: "application/json; charset=utf-8",
+                                    data: JSON.stringify(json),
+                                    success: function (data) {
+
+
+                                        $.each(data, function (key, value) {
+                                            $("#tableBody").append('<tr><td>' + value.HouseName + '</td><td>' +value.HouseNo+'</td><td>' + value.FlatNo + '</td><td>'+ value.OwnerName + '</td><td>'+ value.OwnerMobleNo + '</td><td>'+ value.From+'</td><td>'+ value.To+'</td></tr>');
+                                        });
+                                    }
+                                });
+                              var table2 = $("#myTable2").DataTable();
+                                var HN = $("#HouseRenter").val();
+
+                                $("#myTable2").show();
+                                $("#tableBody2").empty();
+                                var json = { HouseRenter: HN };
+                                $.ajax({
+                                    type: "POST",
+
+                                    url: '/Admins/GetFlatsMemberInfo',
+
+                                    contentType: "application/json; charset=utf-8",
+                                    data: JSON.stringify(json),
+                                    success: function (data) {
+
+
+                                        $.each(data, function (key, value) {
+                                            $("#tableBody2").append('<tr><td>' + value.Name + '</td><td>' +value.MobileNo+'</td><td>' + value.From + '</td><td>'+ value.To +'</td></tr>');
+                                        });
+                                    }
+                                });
+            return false;
+                            });
+
+                             });
+
+        </script>
+    }

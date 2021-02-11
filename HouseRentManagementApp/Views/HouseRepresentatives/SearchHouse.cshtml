@@ -1,0 +1,133 @@
+﻿
+@{
+    ViewBag.Title = "SearchHouse";
+}
+
+<h2>Search House</h2>
+
+<link href="~/Content/DataTables-1.9.4/media/css/jquery.dataTables.css" rel="stylesheet" />
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+
+        <div class="form-group">
+            <label for="CityId" class="control-label col-md-2">Select A City</label>
+            <div class="col-md-10">
+                <select name="CityId" id="CityId">
+                    <option>--Select--</option>
+                    @foreach (var City in ViewBag.CityId)
+                    {
+                        <option value="@City.Id">@City.Name</option>
+                    }
+
+
+                </select>
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+
+            <label for="AreaId" class="control-label col-md-2">Select an Area</label>
+            <div class="col-md-10">
+                <select name="AreaId" id="AreaId">
+                    <option>--Select--</option>
+                </select>
+            </div>
+        </div>
+        </div>
+    <div class="form-group">
+        <table id="myTable" class="table table-bordered table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>House Name</th>
+                    <th>Floor No</th>
+                    <th>Description</th>
+                    <th>Rent</th>
+                    <th>Adress</th>
+                    <th>Contact No</th>
+
+
+
+                </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+        </table>
+    </div>
+   
+
+}
+
+@**@@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/DataTables-1.9.4/media/js/jquery.dataTables.js"></script>
+    <script>
+
+            $(document).ready(function () {
+                $("#CityId").change(function () {
+
+                    var ctId = $("#CityId").val();
+
+                    $("#AreaId").empty();
+                    $("#AreaId").append('<option value="">Select</option>');
+                    var json = { CityId: ctId };
+                    $.ajax({
+                        type: "POST",
+                        url: '/HouseRepresentatives/GetAreaByCityId',
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify(json),
+                        success: function (data) {
+
+                            $.each(data, function (key, value) {
+                                $("#AreaId").append('<option value="' + value.Id + '">' + value.Name + '</option>');
+
+
+                            });
+                        }
+                    });
+                });
+
+                  var table = $("#myTable").DataTable();
+            $("#AreaId").change(function () {
+                var ArId = $("#AreaId").val();
+
+                $("#myTable").show();
+                $("#tableBody").empty();
+                var json = { AreaId: ArId };
+                $.ajax({
+                    type: "POST",
+
+                    url: '/HouseRepresentatives/GetEmptyFlatInfo',
+
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(json),
+                    success: function (data) {
+
+
+                        $.each(data, function (key, value) {
+                            alert(data);
+                            $("#tableBody").append('<tr><td>' + value.HouseName + '</td><td>' + value.FloorNo + '</td><td>' + value.Description + '</td><td>'+value.Rent+'</td><td>'+value.Address+'</td><td>'+value.ContactNo+'</td></tr>');
+                        });
+                    }
+                });
+            });
+
+            });
+
+
+
+    </script>
+
+
+}

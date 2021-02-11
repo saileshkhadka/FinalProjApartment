@@ -1,0 +1,111 @@
+﻿
+@{
+    ViewBag.Title = "FlatInfo";
+}
+
+<h2>Rented Flat Info</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <label for="HouseNo" class="control-label col-md-2">House No</label>
+            <div class="col-md-10">
+                <input type="text" id="HouseNo" />
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+
+            <label for="FlatNo" class="control-label col-md-2">Select an Area</label>
+            <div class="col-md-10">
+                <select name="FlatNo" id="FlatNo"></select>
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <table id="myTable" class="table table-bordered table-hover table-striped">
+                <thead>
+                    <tr>
+                        <th>Renter Name</th>
+                        <th>Renter Mobile No</th>
+                        <th>Renter NationalId</th>
+                        <th>From</th>
+                        <th>To</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody"></tbody>
+            </table>
+        </div>
+
+    </div>
+
+}
+@section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+
+        <script src="~/Scripts/jquery-1.10.2.js"></script>
+        <script src="~/Scripts/DataTables-1.9.4/media/js/jquery.dataTables.js"></script>
+
+        <script>
+            $(document).ready(function () {
+                        $("#HouseNo").change(function () {
+
+                            var HN= $("#HouseNo").val();
+
+                            $("#FlatNo").empty();
+                            $("#FlatNo").append('<option value="">Select</option>');
+                            var json = { HouseNo: HN };
+                            $.ajax({
+                                type: "POST",
+                                url: '/Admins/GetFlatByHouse',
+                                contentType: "application/json; charset=utf-8",
+                                data: JSON.stringify(json),
+                                success: function (data) {
+
+                                    $.each(data, function (key, value) {
+                                        $("#FlatNo").append('<option value="' + value.Id + '">' + value.FlatNo + '</option>');
+
+
+                                    });
+                                }
+                            });
+                        });
+
+                           var table = $("#myTable").DataTable();
+                        $("#FlatNo").change(function () {
+                            var FN = $("#FlatNo").val();
+
+                            $("#myTable").show();
+                            $("#tableBody").empty();
+                            var json = { FlatNo: FN };
+                            $.ajax({
+                                type: "POST",
+
+                                url: '/Admins/GetFlatInfo',
+
+                                contentType: "application/json; charset=utf-8",
+                                data: JSON.stringify(json),
+                                success: function (data) {
+
+
+                                    $.each(data, function (key, value) {
+                                        $("#tableBody").append('<tr><td>' + value.Name + '</td><td>' +value.MobileNo+'</td><td>' + value.NationalId + '</td><td>'+ value.From+'</td><td>'+ value.To+'</td></tr>');
+                                    });
+                                }
+                            });
+                        });
+
+                         });
+
+        </script>
+    }

@@ -1,0 +1,38 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Session["HouseOwnerName"] !=null)
+{
+    
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+         <mark>@Session["HouseOwnerName"]</mark>
+        </li>
+        <li>@Html.ActionLink("LogOut", "LogOut", "Home")</li>
+    </ul>
+    }
+
+else if (Session["houseRepresentativeName"] != null)
+{
+
+    <ul class="nav navbar-nav navbar-right">
+       
+        <li>
+            <mark>@Session["houseRepresentativeName"]</mark>
+        </li>
+        <li>@Html.ActionLink("LogOut", "LogOut", "Home")</li>
+    </ul>
+
+}
+
+else if (Session["AdminName"] != null)
+{
+
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            <mark>@Session["AdminName"]</mark>
+        </li>
+       
+        <li>@Html.ActionLink("LogOut", "LogOut", "Home")</li>
+    </ul>
+
+}
+

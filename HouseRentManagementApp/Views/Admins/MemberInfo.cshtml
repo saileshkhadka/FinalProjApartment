@@ -1,0 +1,94 @@
+﻿@{
+        ViewBag.Title = "MemberInfo";
+    }
+<link href="~/Content/DataTables-1.9.4/media/css/jquery.dataTables.css" rel="stylesheet" />
+    <h2>Flat Member Information</h2>
+
+
+
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <label for="MobileNo" class="control-label col-md-2">Mobile No</label>
+                <div class="col-md-10">
+                    <input type="text" name="MobileNo" id="MobileNo" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Search" class="control-label col-md-2"></label>
+                <div class="col-md-10">
+                    <input type="submit" name="Search" id="Search" value="Search" />
+                </div>
+            </div>
+            <div class="form-group">
+                <table id="myTable" class="table table-bordered table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>National Id</th>
+                            <th>Occupation</th>
+                            <th>Representative Name</th>
+                            <th>Representative Mobile No</th>
+                            <th>Live From</th>
+                            <th>Live To</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody"></tbody>
+                </table>
+            </div>
+          
+
+          
+            </div>
+
+
+    }
+
+
+
+    @**@
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/DataTables-1.9.4/media/js/jquery.dataTables.js"></script>
+
+    <script>
+                    $(document).ready(function () {
+
+                                   var table = $("#myTable").DataTable();
+                                $("#Search").click(function () {
+                                    var MNO = $("#MobileNo").val();
+
+                                    $("#myTable").show();
+                                    $("#tableBody").empty();
+                                    var json = { MobileNo: MNO };
+                                    $.ajax({
+                                        type: "POST",
+
+                                        url: '/Admins/GetFlatsMemberInfoByMobileNo',
+
+                                        contentType: "application/json; charset=utf-8",
+                                        data: JSON.stringify(json),
+                                        success: function (data) {
+
+
+                                            $.each(data, function (key, value) {
+                                                $("#tableBody").append('<tr><td>' + value.Name + '</td><td>' +value.NationalId+'</td><td>' + value.Occupations + '</td><td>'+ value.RepresentativeName + '</td><td>'+ value.RepresentativeMobileNo + '</td><td>'+ value.From+'</td><td>'+ value.To+'</td></tr>');
+                                            });
+                                        }
+                                    });
+                                    return false;
+                                });
+
+                                 });
+
+    </script>
+}

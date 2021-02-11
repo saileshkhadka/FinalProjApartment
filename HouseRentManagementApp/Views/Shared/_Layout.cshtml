@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title -House Rent Management System</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        .body {
+            background-image:url(http://www.myrentbd.com/photo/1044967803_IMG_5808.jpg);
+        }
+        .body-content{
+            background-color:		#F0FFF0;
+        }
+        
+        .navbar-fixed-top{
+            background-color:#052b0a;
+        }
+    </style>
+</head>
+<body class="body">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    @if (Session["HouseOwnerMobileNo"] != null)
+                    {
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">House<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Homes List", "Index", "Homes")</li>
+                            <li>@Html.ActionLink("Add Homes", "Create", "Homes")</li>
+
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Flat<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Flat List", "Index", "Flats")</li>
+                            <li>@Html.ActionLink("Add Flat", "Create", "Flats")</li>
+                            
+
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Rent<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+
+                            <li>@Html.ActionLink("Rent List", "Index", "RentedBies")</li>
+                            <li>@Html.ActionLink("Add Rent ", "Create", "RentedBies")</li>
+                            <li>@Html.ActionLink("Rented Flat Info", "RentedRoomInfo", "HouseOwners")</li>
+
+                        </ul>
+                    </li>
+                        
+
+                    }
+                    else if (Session["houseRepresentativeMobileName"] != null)
+                    {
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Member<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+
+                            <li>@Html.ActionLink("Member List", "Index", "FlatMembers")</li>
+                            <li>@Html.ActionLink("Add Member", "AddMember", "FlatMembers")</li>
+
+                        </ul>
+                    </li>
+                       
+                        <li>@Html.ActionLink("Search House", "SearchHouse", "HouseRepresentatives")</li>
+
+                    }
+                    else if (Session["AdminName"] != null)
+                    {
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("House Informtion", "HouseInformtion", "Admins")</li>
+                        <li>@Html.ActionLink("Flat Info", "FlatInfo", "Admins")</li>
+                        <li>@Html.ActionLink("Member Info", "MemberInfo", "Admins")</li>
+                        <li>@Html.ActionLink("Renter Info", "RenterInfo", "Admins")</li>
+
+                    }
+                    else
+                    {
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("HouseOwner", "Index", "HouseOwners")</li>
+                    <li>@Html.ActionLink("HouseRepresentative", "Index", "HouseRepresentatives")</li>
+                        
+                    }
+                   
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content" >
+        @RenderBody()
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

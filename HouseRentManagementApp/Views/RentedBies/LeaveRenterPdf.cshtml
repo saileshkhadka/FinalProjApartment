@@ -1,0 +1,95 @@
+﻿@model HouseRentManagementApp.Models.RentedBy
+@{
+    Layout = null;
+    string HouseName = ViewBag.Home;
+    string HR = ViewBag.HR;
+    string FlatNo = ViewBag.FlatNo;
+    string HouseOwner = ViewBag.HouseOwner;
+}
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>LeaveRenterPdf</title>
+    <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="heading2">
+        <center><h2>Renter Leaving Confirmation</h2></center>
+    </div>
+    <br />
+    <br />
+    <br />
+
+
+   <div class="table-responsive">
+    <table title="Flat Leave" class="table" border="0">
+        <tbody>
+            <tr>
+                <td>House Name</td>
+                <td>@HouseName</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>House Owner</td>
+                <td>@HouseOwner</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Flat No</td>
+                <td>@FlatNo</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+              </tr>
+            <tr>
+                <td>Renter Name</td>
+                <td>@HR</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Entry Date:</td>
+                <td>@Model.EntryDate</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Leaving Date</td>
+                <td>@Model.LeavingDate</td>
+                </tr>
+
+
+
+</tbody>
+
+    </table>
+    </div>
+  
+    <div>
+    <br />
+    <br />
+    <p class="text-left">@HouseOwner</p>
+    <p class="text-right">@HR</p>
+
+
+    </div>
+        
+        @*script src="~/Scripts/jquery-1.12.4.min.js"></script>
+            <script src="~/Scripts/bootstrap.min.js"></script> *@  <
+</body>
+
+
+
+</html>

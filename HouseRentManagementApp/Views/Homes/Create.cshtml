@@ -1,0 +1,116 @@
+﻿@model HouseRentManagementApp.Models.Home
+
+@{
+    ViewBag.Title = "Create";
+}
+<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+
+<h2><mark>Create Homes  </mark></h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+       
+
+
+        <div class="form-group">
+            <label for="CityId" class="control-label col-md-2">Select A City</label>
+            <div class="col-md-10">
+                <select name="CityId" id="CityId">
+                    <option>--Select--</option>
+                    @foreach (var City in  ViewBag.CityId)
+                    {
+                        <option value="@City.Id">@City.Name</option>
+                    }
+
+
+                </select>
+            </div>
+            </div>
+
+
+
+        <div class="form-group">
+         
+            <label for="AreaId" class="control-label col-md-2">Select an Area</label>
+            <div class="col-md-10">
+                <select name="AreaId" id="AreaId">
+                    <option>--Select--</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+                        
+
+        <script src="~/Scripts/jquery-1.10.2.js"></script>
+
+                    <script>
+
+    $(document).ready(function () {
+        $("#CityId").change(function () {
+            var ctId = $("#CityId").val();
+
+            $("#AreaId").empty();
+            $("#AreaId").append('<option value="">Select</option>');
+            var json = { CityId: ctId };
+            $.ajax({
+                type: "POST",
+                url: '/Homes/GetAreaByCityId',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(json),
+                success: function (data) {
+
+                    $.each(data, function (key, value) {
+                        $("#AreaId").append('<option value="' + value.Id + '">' + value.Name + '</option>');
+
+                     
+                    });
+                }
+            });
+        });
+    });
+
+
+    </script>
+                        
+
+}

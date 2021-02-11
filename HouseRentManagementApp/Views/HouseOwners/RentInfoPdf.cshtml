@@ -1,0 +1,85 @@
+﻿@model IEnumerable<HouseRentManagementApp.Models.FlatMember>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Flat Renter Info</title>
+    <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+</head>
+
+<body>
+
+    <div class="heading2">
+        <center>
+            <h2>Rented Flat Information</h2>
+            <table>
+                <tr><td><h5>House Name:</h5></td><td><h5>@ViewBag.HouseName</h5></td></tr>
+                <tr><td><h5>House Owner:</h5></td><td><h5>@ViewBag.Owner</h5></td></tr>
+                <tr><td><h5>Flat No:</h5></td><td><h5>@ViewBag.FlatNo</h5></td></tr>
+                <tr><td><h5>Renter Name:</h5></td><td><h5>@ViewBag.HR</h5></td></tr>
+                <tr><td><h5>Renter Mobile No:</h5></td><td><h5>@ViewBag.HRNo</h5></td></tr>
+
+
+            </table>
+        </center>
+       
+
+
+    </div>
+    <div>
+        <center> <h3><mark>Flat Members List</mark></h3></center>
+    </div>
+    <div class="table-responsive">
+        <table title="House Member List" class="table">
+            <thead>
+                <tr>
+                    <td>Member Name</td>
+                    <td>Mobile No</td>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td> @item.Name</td>
+                        <td>@item.MobileNo</td>
+                    </tr>
+
+                }
+
+
+            </tbody>
+
+        </table>
+    </div>
+    <br />
+    <br />
+   <p class="text-left">@ViewBag.Owner</p> 
+    <p class="text-right">@ViewBag.HR</p>
+
+
+    <div>
+
+    </div>
+                                                @*<script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+
+                                                      <script src="~/Scripts/DataTables-1.9.4/media/js/jquery.dataTables.js">
+                                            </script>
+
+
+        <script src="~/Scripts/jquery-1.12.4.min.js"></script>
+        <script src="~/Scripts/bootstrap.min.js"></script>
+
+                                                *@
+
+   
+</body>
+</html>

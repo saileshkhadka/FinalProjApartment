@@ -1,0 +1,112 @@
+﻿@model HouseRentManagementApp.Models.RentedBy
+
+@{
+    ViewBag.Title = "RoomRent";
+}
+<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+<h2>Rent</h2>
+@if(ViewBag.error!=null)
+{
+    <label class="label-warning">@ViewBag.error</label>
+}
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <label for="HomeId" class="control-label col-md-2">Select Home</label>
+            <div class="col-md-10">
+                <select name="HomeId" id="HomeId">
+                    <option>--Select--</option>
+                    @foreach (var Home in ViewBag.HomeId)
+                    {
+                        <option value="@Home.Id">@Home.Name</option>
+                    }
+
+
+                </select>
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+
+            <label for="FlatId" class="control-label col-md-2">Select Flat</label>
+            <div class="col-md-10">
+                <select name="FlatId" id="FlatId">
+                    <option>--Select--</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+
+            <label for="MobileNo" class="control-label col-md-2">Representative Mobile No</label>
+            <div class="col-md-10">
+               @Html.TextBox("MobileNo")
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EntryDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.EntryDate, new { @id = "Date" })
+                @Html.ValidationMessageFor(model => model.EntryDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+       
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+             @Scripts.Render("~/bundles/jqueryval")
+
+     <script src="~/Scripts/jquery-1.10.2.js"></script>
+
+
+     <script>
+
+             $(document).ready(function () {
+
+                 $("#HomeId").change(function () {
+                     var HmeId = $("#HomeId").val();
+
+                     $("#FlatId").empty();
+                     $("#FlatId").append('<option value="">Select</option>');
+                     var json = { HomeId: HmeId };
+                     $.ajax({
+                         type: "POST",
+                         url: '/RentedBies/GetFlatByHomeId',
+                         contentType: "application/json; charset=utf-8",
+                         data: JSON.stringify(json),
+                         success: function (data) {
+
+                             $.each(data, function (key, value) {
+                                 $("#FlatId").append('<option value="' + value.Id + '">' + value.FlatNo + '</option>');
+
+
+                             });
+                         }
+                     });
+                 });
+             });
+      $("#Date").datepicker();
+     
+    </script>
+         }

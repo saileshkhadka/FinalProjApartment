@@ -1,0 +1,57 @@
+﻿@model IEnumerable<HouseRentManagementApp.Models.RentedBy>
+
+@{
+    ViewBag.Title = "Index";
+}
+<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+<h2>All Flat List And Representative
+</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("House Name")
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Flats.FlatNo)
+        </th>
+        <th>
+            @Html.DisplayName("Renter Name")
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EntryDate)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        @if (item.LeavingDate == null)
+        {
+            <td>
+                @Html.DisplayFor(modelItem => item.Flats.Homes.Name)
+            </td>
+
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Flats.FlatNo)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.HouseRepresentatives.Name)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.EntryDate)
+            </td>
+            <td>
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        }
+        
+    </tr>
+}
+
+</table>
+
+@**@
