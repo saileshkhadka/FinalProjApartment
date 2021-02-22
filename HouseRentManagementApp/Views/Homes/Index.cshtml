@@ -3,54 +3,66 @@
 @{
     ViewBag.Title = "ListOfHomes";
 }
+@*<section class="content-header">
+    <h1>
+        List Of Homes
+    </h1>
+</section>*@
+<!-- Main content -->
+<section class="content container-fluid">
 
-<h2><mark> List Of Homes</mark></h2>
+    <div class="box">
+        <div class="box-header with-border">
+            <h3 class="box-title">List Of Homes</h3>
+        </div>
+        <table class="table table-bordered table-hover dataTable table-responsive" role="grid">
+            <tr>
+                <th>
+                    Home Number
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Address)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.HouseOwners.Name)
+                </th>
+                <th style="width:100px">Actions</th>
+            </tr>
 
-<table class="table">
-    <tr>
-      
-        
-        <th>
-            @Html.DisplayNameFor(model => model.HomeNo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Address)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.HouseOwners.Name)
-        </th>
-        <th></th>
-    </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
 
-@foreach (var item in Model) {
-    <tr>
-        
-        <td>
-            @Html.DisplayFor(modelItem => item.HomeNo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Address)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.HouseOwners.Name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id })
-        
-        </td>
-    </tr>
-}
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HomeNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Address)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HouseOwners.Name)
+                    </td>
+                    <td>
+                        @*<a href="@Url.Action("Edit", "Edit", new { id = item.Id })">*@
+                            <button type="button" class="btn btn-sm btn-block btn-default" onclick="location.href='@Url.Action("Edit", "Homes", new { id = item.Id })'">Edit</button>
+                        @*</a>*@
+                        @*@Html.ActionLink("Edit", "Edit", new { id = item.Id , @class = "btn btn-sm btn-block btn-default" })*@
+                    </td>
+                </tr>
+            }
 
-</table>
+        </table>
+    </div>
+</section>
