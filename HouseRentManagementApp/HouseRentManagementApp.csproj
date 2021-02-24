@@ -483,6 +483,7 @@
     <Content Include="Views\Admins\MemberInfo.cshtml" />
     <Content Include="Views\RentedBies\LeaveRenterPdf.cshtml" />
     <Content Include="Views\HouseOwners\RentInfoPdf.cshtml" />
+    <Content Include="Views\Shared\_MainMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

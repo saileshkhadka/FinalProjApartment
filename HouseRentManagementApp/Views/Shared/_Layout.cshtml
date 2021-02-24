@@ -57,8 +57,6 @@
                         <li class="dropdown user user-menu">
                             <!-- Menu Toggle Button -->
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <!-- The user image in the navbar-->
-                                <img src="~/Content/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
                                 <!-- hidden-xs hides the username on small devices so only the image appears. -->
                                 @if (Session["HouseOwnerName"] != null)
                                 {
@@ -74,27 +72,7 @@
                                 }
                             </a>
                             <ul class="dropdown-menu">
-                                <!-- The user image in the menu -->
-                                <li class="user-header">
-                                    <img src="~/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-                                    <p>
-                                        Test
-                                    </p>
-                                </li>
-                                <!-- Menu Body -->
-                                <li class="user-body">
-                                    <div class="row">
-                                        <div class="col-xs-4 text-center">
-                                            <a href="#">Account</a>
-                                        </div>
-                                    </div>
-                                    <!-- /.row -->
-                                </li>
-                                <!-- Menu Footer-->
                                 <li class="user-footer">
-                                    <div class="pull-left">
-                                        <a href="#" class="btn btn-default btn-flat">Profile</a>
-                                    </div>
                                     <div class="pull-right">
                                         <a href="/Home/LogOut" class="btn btn-default btn-flat">Sign out</a>
                                     </div>
@@ -109,29 +87,6 @@
         <aside class="main-sidebar">
             <!-- sidebar: style can be found in sidebar.less -->
             <section class="sidebar">
-                <!-- Sidebar user panel (optional) -->
-                <div class="user-panel">
-                        <div class="pull-left image">
-                            <img src="~/Content/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-                        </div>
-                        @*<div class="pull-left info">
-                            <p>Shehryar Khan</p>*@
-                            <!-- Status -->
-                            @*<a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-                        </div>*@
-                    </div>
-                <!-- search form (Optional) -->
-                @*<form action="#" method="get" class="sidebar-form">
-                        <div class="input-group">
-                            <input type="text" name="q" class="form-control" placeholder="Search...">
-                            <span class="input-group-btn">
-                                <button type="submit" name="search" id="search-btn" class="btn btn-flat">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </span>
-                        </div>
-                    </form>*@
-                <!-- /.search form -->
                 <!-- Sidebar Menu -->
                 @Html.Partial("_MainMenu")
                 <!-- /.sidebar-menu -->

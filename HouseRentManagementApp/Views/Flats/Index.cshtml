@@ -4,55 +4,62 @@
     ViewBag.Title = "Index";
 }
 
-<h2><mark>Flat List</mark> </h2>
-<br />
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Homes.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Types.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FloorNo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FlatNo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RentPrice)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th></th>
-    </tr>
+<section class="content container-fluid">
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Homes.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Types.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FloorNo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FlatNo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RentPrice)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id })
-        </td>
-    </tr>
-}
+    <div class="box">
+        <div class="box-header with-border">
+            <h3 class="box-title">List Of Flat</h3>
+        </div>
+        <table class="table table-bordered table-hover dataTable table-responsive" role="grid">
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Type
+                </th>
+                <th>
+                    Floor No.
+                </th>
+                <th>
+                    Flat No.
+                </th>
+                <th>
+                    Rental Price
+                </th>
+                <th>
+                    Description
+                </th>
+                <th style="width:100px">Actions</th>
+            </tr>
 
-</table>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Homes.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Types.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FloorNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FlatNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RentPrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-block btn-default" onclick="location.href='@Url.Action("Edit", "Flats", new { id = item.Id })'">Edit</button>
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</section>

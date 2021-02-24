@@ -3,76 +3,76 @@
 @{
     ViewBag.Title = "RoomRent";
 }
-<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
-<h2>Rent</h2>
+
 @if(ViewBag.error!=null)
 {
     <label class="label-warning">@ViewBag.error</label>
 }
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            <label for="HomeId" class="control-label col-md-2">Select Home</label>
-            <div class="col-md-10">
-                <select name="HomeId" id="HomeId">
-                    <option>--Select--</option>
-                    @foreach (var Home in ViewBag.HomeId)
-                    {
-                        <option value="@Home.Id">@Home.Name</option>
-                    }
-
-
-                </select>
+<section class="content container-fluid" style="padding-top:30px">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="box box-info">
+            <div class="box-header with-border">
+                <h3 class="box-title">Add Rent</h3>
             </div>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <!-- /.box-header -->
+            <!-- form start -->
+            <form class="form-horizontal">
+                <div class="box-body">
+                    <div class="clearfix">
+                        <div class="form-group">
+                            <label for="HomeId" class="control-label col-md-2">Select Home</label>
+                            <div class="col-sm-6" style="padding-bottom: 6px">
+                                <select name="HomeId" id="HomeId">
+                                    <option>--Select--</option>
+                                    @foreach (var Home in ViewBag.HomeId)
+                                    {
+                                        <option value="@Home.Id">@Home.Name</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class="form-group">
+                            <label for="FlatId" class="control-label col-md-2">Select Flat</label>
+                            <div class="col-sm-6" style="padding-bottom: 6px">
+                                <select name="FlatId" id="FlatId">
+                                    <option>--Select--</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class="form-group">
+                            <label for="MobileNo" class="control-label col-md-2">Representative Mobile No</label>
+                            <div class="col-sm-6" style="padding-bottom: 6px">
+                                @Html.TextBox("MobileNo")
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.EntryDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-sm-6" style="padding-bottom: 6px">
+                                @Html.TextBoxFor(model => model.EntryDate, new { @id = "Date" })
+                                @Html.ValidationMessageFor(model => model.EntryDate, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>                    
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer">
+                    <button type="submit" value="Create" class="btn btn-info">Save</button>
+                </div>
+                <!-- /.box-footer -->
+            </form>
         </div>
-
-
-
-        <div class="form-group">
-
-            <label for="FlatId" class="control-label col-md-2">Select Flat</label>
-            <div class="col-md-10">
-                <select name="FlatId" id="FlatId">
-                    <option>--Select--</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="form-group">
-
-            <label for="MobileNo" class="control-label col-md-2">Representative Mobile No</label>
-            <div class="col-md-10">
-               @Html.TextBox("MobileNo")
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.EntryDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.EntryDate, new { @id = "Date" })
-                @Html.ValidationMessageFor(model => model.EntryDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-       
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+    }
+</section>
 
 @section Scripts {
              @Scripts.Render("~/bundles/jqueryval")

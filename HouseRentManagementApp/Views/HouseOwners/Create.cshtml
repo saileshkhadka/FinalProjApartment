@@ -1,10 +1,10 @@
 ﻿@model HouseRentManagementApp.Models.HouseOwner
 
 @{
-    
+
     ViewBag.Title = "CreateHouseOwner";
     string NationalId = ViewBag.NationalIdFound;
-    
+
 }
 @if (NationalId != null)
 {
@@ -12,77 +12,91 @@
 }
 @if (ViewBag.ExistNationalId != null)
 {
-    <label class="alert-warning">Nationl Id Already Exist</label>
+    <label class="alert-warning">National Id Already Exist</label>
 }
-<h2>Register House Owner</h2>
 
-
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-      
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+<section class="content-header">
+    <h1></h1>
+    <ol class="breadcrumb">
+        <li><a href="/HouseOwners/Index"> Sign In</a></li>
+        <li class="active">Register</li>
+    </ol>
+</section>
+<section class="content container-fluid" style="padding-top:30px">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="box box-info">
+            <div class="box-header with-border">
+                <h3 class="box-title">Register House Owner</h3>
             </div>
+            <!-- form start -->
+            <form class="form-horizontal">
+                <div class="box-body">
+                    <div class="clearfix">
+                        <div class="form-group">
+                            <label for="name" class="col-sm-2 control-label">Name</label>
+                            <div class="col-sm-6" style="padding-bottom: 6px">
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class="form-group">
+                            <label for="nationalId" class="col-sm-2 control-label">National ID</label>
+                            <div class="col-sm-6" style="padding-bottom: 6px">
+                                @Html.EditorFor(model => model.NationalId, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.NationalId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class="form-group">
+                            <label for="mobileNo" class="col-sm-2 control-label">Mobile No.</label>
+                            <div class="col-sm-6" style="padding-bottom: 6px">
+                                @Html.EditorFor(model => model.MobileNo, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.MobileNo, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class="form-group">
+                            <label for="occupationId" class="col-sm-2 control-label">Occupation ID</label>
+                            <div class="col-sm-6" style="padding-bottom: 6px">
+                                @Html.DropDownList("OccupationId", null, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.OccupationId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class="form-group">
+                            <label for="password" class="col-sm-2 control-label">Password</label>
+                            <div class="col-sm-6" style="padding-bottom: 6px">
+                                @Html.PasswordFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class="form-group">
+                            <label for="confirmPassword" class="col-sm-2 control-label">Confirm Password</label>
+                            <div class="col-sm-6" style="padding-bottom: 6px">
+                                @Html.PasswordFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer">
+                    <button type="submit" value="Create" class="btn btn-info">Register</button>
+                </div>
+                <!-- /.box-footer -->
+            </form>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.NationalId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-
-                @Html.EditorFor(model => model.NationalId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NationalId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.MobileNo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MobileNo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MobileNo, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.OccupationId, "OccupationId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("OccupationId","")
-                @Html.ValidationMessageFor(model => model.OccupationId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.PasswordFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.PasswordFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-}
+    }
+</section>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
