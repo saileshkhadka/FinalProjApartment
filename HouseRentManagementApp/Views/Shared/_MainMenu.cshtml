@@ -1,0 +1,88 @@
+﻿<ul class="sidebar-menu" data-widget="tree">
+    @*<li class="header">HEADER</li>*@
+    <!-- Optionally, you can add icons to the links -->
+    @*<li class="active"><a href="#"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+        <li><a href="#"><i class="fa fa-link"></i> <span>Inward</span></a></li>
+        <li><a href="#"><i class="fa fa-link"></i> <span>Outward</span></a></li>*@
+    @*<li class="treeview">
+            <a href="#">
+                <i class="fa fa-link"></i> <span>Multilevel</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href="#">Link in level 2</a></li>
+                <li><a href="#">Link in level 2</a></li>
+            </ul>
+        </li>*@
+    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+    @if (Session["HouseOwnerMobileNo"] != null)
+    {
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-home"></i> <span>House</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <li>@Html.ActionLink("Homes List", "Index", "Homes")</li>
+                <li>@Html.ActionLink("Add Homes", "Create", "Homes")</li>
+            </ul>
+        </li>
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-link"></i> <span>Flat</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <li>@Html.ActionLink("Flat List", "Index", "Flats")</li>
+                <li>@Html.ActionLink("Add Flat", "Create", "Flats")</li>
+            </ul>
+        </li>
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-link"></i> <span>Rent</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <li>@Html.ActionLink("Rent List", "Index", "RentedBies")</li>
+                <li>@Html.ActionLink("Add Rent ", "Create", "RentedBies")</li>
+                <li>@Html.ActionLink("Rented Flat Info", "RentedRoomInfo", "HouseOwners")</li>
+            </ul>
+        </li>
+    }
+    else if (Session["houseRepresentativeMobileName"] != null)
+    {
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-link"></i> <span>Member</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <li>@Html.ActionLink("Member List", "Index", "FlatMembers")</li>
+                <li>@Html.ActionLink("Add Member", "AddMember", "FlatMembers")</li>
+            </ul>
+        </li>
+        <li>@Html.ActionLink("Search House", "SearchHouse", "HouseRepresentatives")</li>
+    }
+    else if (Session["AdminName"] != null)
+    {
+        <li>@Html.ActionLink("House Informtion", "HouseInformtion", "Admins")</li>
+        <li>@Html.ActionLink("Flat Info", "FlatInfo", "Admins")</li>
+        <li>@Html.ActionLink("Member Info", "MemberInfo", "Admins")</li>
+        <li>@Html.ActionLink("Renter Info", "RenterInfo", "Admins")</li>
+    }
+    else
+    {
+        <li>@Html.ActionLink("House Owner", "Index", "HouseOwners")</li>
+        <li>@Html.ActionLink("House Representative", "Index", "HouseRepresentatives")</li>
+    }
+</ul>

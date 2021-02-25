@@ -5,43 +5,50 @@
     string logInError = ViewBag.LogInError;
 }
 
-<h2>House Owner Sign In</h2>
-<br />
-<br />
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.MobileNo, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.MobileNo, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.MobileNo, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.PasswordFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Sign In" class="btn btn-default" />
-            @if (logInError != null)
-            {
-                <label class="alert-warning">@logInError</label>
-            }
-            @Html.ActionLink("Regiser", "Create", "HouseOwners")
-        </div>
-    </div>
-   
-
-}
+    <section class="content container-fluid" style="padding-top:30px">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Sign In for House Owner</h3>
+                </div>
+                <!-- form start -->
+                <form class="form-horizontal">
+                    <div class="box-body">
+                        <div class="clearfix">
+                            <div class="form-group">
+                                <label for="mobileNo" class="col-sm-2 control-label">Mobile No.</label>
+                                <div class="col-sm-6" style="padding-bottom: 6px">
+                                    @Html.EditorFor(model => model.MobileNo, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.MobileNo, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix">
+                            <div class="form-group">
+                                <label for="password" class="col-sm-2 control-label">Password</label>
+                                <div class="col-sm-6" style="padding-bottom: 6px">
+                                    @Html.PasswordFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-info">Log in</button>
+                        @if (logInError != null)
+                        {
+                            <label class="alert-warning">@logInError</label>
+                        }
+                        @Html.ActionLink("Register", "Create", "HouseOwners", new { @class = "btn btn-primary" })
+                    </div>
+                    <!-- /.box-footer -->
+                </form>
+            </div>
+        }
+    </section>
 
 
 
