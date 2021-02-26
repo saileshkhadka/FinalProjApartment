@@ -4,83 +4,84 @@
     ViewBag.Title = "Index";
 }
 
-<h2>List Of Member</h2>
+<section class="content container-fluid">
 
-<p>
-    @Html.ActionLink("Add Member", "AddMember")
-</p>
-<table class="table">
-    <tr>
-        
-         <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayName("Occupation")
-        </th>
-       
-         <th>
-            @Html.DisplayNameFor(model => model.NationalIdOrBirthCertificate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MobileNo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EntryDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LeavingDate)
-        </th>
-       
-        <th></th>
-    </tr>
+    <div class="box">
+        <div class="box-header with-border">
+            <h3 class="box-title">List Of Member</h3>
+        </div>
+        <table class="table table-bordered table-hover dataTable table-responsive" role="grid">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayName("Occupation")
+                </th>
 
-@foreach (var item in Model) {
-    <tr>
-        
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Occupations.Name)
-        </td>
-         <td>
-            @Html.DisplayFor(modelItem => item.NationalIdOrBirthCertificate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MobileNo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EntryDate)
-        </td>
-        <td>
-            @if (item.LeavingDate==null)
+                <th>
+                    @Html.DisplayNameFor(model => model.NationalIdOrBirthCertificate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MobileNo)
+                </th>
+                <th>
+                    @Html.DisplayName("Entry Date")
+                </th>
+                <th>
+                    @Html.DisplayName("Leaving Date")
+                </th>
+                <th style="width:100px">Actions</th>
+            </tr>
+
+            @foreach (var item in Model)
             {
-                @Html.DisplayName("Not Leave");
-            } 
-            @if (item.LeavingDate != null)
-            {
-               @Html.DisplayFor(modelItem => item.LeavingDate)
+                <tr>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Occupations.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NationalIdOrBirthCertificate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MobileNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EntryDate)
+                    </td>
+                    <td>
+                        @if (item.LeavingDate == null)
+                        {
+                            @Html.DisplayName("Not Leave");
+                        }
+                        @if (item.LeavingDate != null)
+                        {
+                            @Html.DisplayFor(modelItem => item.LeavingDate)
+                        }
+
+                    </td>
+                    @if (item.LeavingDate != null)
+                    {
+                        <td></td>
+                    }
+                    else
+                    {
+                        <td>
+                            <button type="button" class="btn btn-sm btn-block btn-default" id = "Leave" onclick="location.href='@Url.Action("DeleteConfirmed", "FlatMembers", new { id = item.Id })'">Leave House</button>
+                        </td>
+                    }
+
+
+                </tr>
             }
-           
-        </td>
-       @if (item.LeavingDate != null)
-       {
-        <td></td>
-       }
-       else
-       {
-        <td>
-            @Html.ActionLink("Leave House", "DeleteConfirmed", new { id = item.Id }, new { @id = "Leave" })
-        </td>
-       }
-           
-         
-    </tr>
-}
-   
-</table>
 
+        </table>
+    </div>
+</section>
     @section scripts{
     <script>
                            $(document).ready(function
